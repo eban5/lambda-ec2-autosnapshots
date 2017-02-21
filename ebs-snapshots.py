@@ -48,8 +48,9 @@ def lambda_handler(event, context):
                 Instancename= name['Value']
                 # To store the instance key value
                 key= name['Key']
+                # Store the instance custom tag (Application) value for snapshot tagging
                 if key == 'Application':
-                    appname = name['Value']
+                    app_name = name['Value']
                 # Below the code is create Snapshot name as instance Name
                 if key == 'Name' :
                     ins_name = Instancename
@@ -93,7 +94,7 @@ def lambda_handler(event, context):
                 Resources=to_tag[retention_days],
                 Tags=[
                 {'Key': 'DeleteOn', 'Value': delete_fmt},
-                {'Key': 'Application', 'Value': appname},
+                {'Key': 'Application', 'Value': app_name},
                 {'Key': 'Name', 'Value': snapshot },
                 ]
                 )
